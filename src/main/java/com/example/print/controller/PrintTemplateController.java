@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.print.asm.TaskPrint;
 import com.example.print.asm.enums.BarCodeTypeMappings;
 import com.example.print.asm.enums.Font;
+import com.example.print.dto.TemplateProp;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +30,16 @@ import java.util.Map;
 @RestController
 public class PrintTemplateController {
 
+    @GetMapping("template/list")
+    public List<TemplateProp> listTemplate() {
+        List<TemplateProp> lists = new ArrayList<>();
+
+        return lists;
+    }
+
     @PostMapping("/template/add")
     @CrossOrigin(allowCredentials = "true")
-    public ResponseEntity generateTemplate(HttpServletRequest request, @RequestBody HashMap units) throws Exception {
+    public ResponseEntity generateTemplate(HttpServletRequest request, @RequestBody TemplateProp prop) throws Exception {
 
         Map<String, String> printData = new HashMap<>();
         printData.put("ip", "10.128.38.168");
@@ -42,8 +51,6 @@ public class PrintTemplateController {
         printData.put("orderNo", "订单号  : 2999111100000039054");
         printData.put("orderDate", "订单时间：2019-07-01 20:29:46");
 
-
-        /*List<Map<String, String>> units = JSON.parseObject(templateStr, List.class);*/
         Class<?> clazz = Class.forName("com.example.print.asm.TaskPrint");
         Constructor<?> constructor = clazz.getConstructor(String.class);
         TaskPrint taskPrint = (TaskPrint) constructor.newInstance(printData.get("ip"));
