@@ -6,7 +6,7 @@ public class ElementProp {
     protected String valueName;
     protected String type;
 
-    protected Integer fontWeight;
+    protected Integer fontWidth;
     protected Integer fontHeight;
     protected String fontType;
 
@@ -48,12 +48,12 @@ public class ElementProp {
         this.type = type;
     }
 
-    public Integer getFontWeight() {
-        return fontWeight;
+    public Integer getFontWidth() {
+        return fontWidth;
     }
 
-    public void setFontWeight(Integer fontWeight) {
-        this.fontWeight = fontWeight;
+    public void setFontWidth(Integer fontWidth) {
+        this.fontWidth = fontWidth;
     }
 
     public Integer getFontHeight() {

@@ -22,15 +22,14 @@ public class TaskPrint {
     }
 
     public void printTask() throws Exception {
-        init(55,2,55,2);
-        //escPosWriter.text("1111111111111111111111111111111111111111111111111111111111111111111111111");
-        //text("Hello Page Mode", Font.A_ALT, 0, 0, 0, 0, 100, 0);
-        //qrCode("12345678", 50, 0, 1, 0, 3);
-        text("11111", Font.A_SPECIAL, 1, 1, 60, 2, 0, 1);
-        end();
+        escPosWriter.initialize()
+                .setAbsolutePosition(0, 1)
+                .text("1111").printAndFeedLines(5)
+                .cut(CutA.PARTIAL)
+                .sendRealTimeRequestPulse(Pin.TWO, PulseTime.FOUR);
     }
 
-    public void init(int wl,int wh,int hl,int hh) {
+    public void init(int wl, int wh, int hl, int hh) {
         escPosWriter
                 .initialize().setJustification(Justification.RIGHT)
                 .setPageMode()
@@ -78,7 +77,7 @@ public class TaskPrint {
 
 
     public static void main(String[] args) throws Exception {
-        TaskPrint taskPrint = new TaskPrint("10.128.38.168");
+        TaskPrint taskPrint = new TaskPrint("10.128.38.241");
         taskPrint.printTask();
     }
 }

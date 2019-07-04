@@ -19,6 +19,11 @@ public class TemplateProp {
      * 模板名称
      */
     private String templateName;
+
+    private Integer printerType;
+
+    private Integer printMode;
+
     private String html;
 
     public List<ElementProp> getElements() {
@@ -59,5 +64,21 @@ public class TemplateProp {
 
     public void setHtml(String html) {
         this.html = html;
+    }
+
+    public Integer getPrinterType() {
+        return printerType;
+    }
+
+    public void setPrinterType(Integer printerType) {
+        this.printerType = printerType;
+    }
+
+    public Integer getPrintMode() {
+        return printMode;
+    }
+
+    public void setPrintMode(Integer printMode) {
+        this.printMode = printMode;
     }
 }

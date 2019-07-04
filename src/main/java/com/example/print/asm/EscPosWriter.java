@@ -45,7 +45,7 @@ public class EscPosWriter {
         try {
             socket = new Socket(ip, port);
             this.out = socket.getOutputStream();
-            writer=new OutputStreamWriter(out,"gbk");
+            writer = new OutputStreamWriter(out, "gbk");
         } catch (Exception e) {
             e.printStackTrace();
         }
