@@ -27,7 +27,7 @@ public class EscPosWriter {
     private static final int SP = 32;
 
     private static OutputStream out;
-
+    OutputStreamWriter writer = null;
     private static final int DEFAULT_PORT = 9100;
     private Socket socket;
     private OutputStream socketOut;
@@ -45,6 +45,7 @@ public class EscPosWriter {
         try {
             socket = new Socket(ip, port);
             this.out = socket.getOutputStream();
+            writer=new OutputStreamWriter(out,"gbk");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1503,6 +1504,42 @@ public class EscPosWriter {
         final int high = 0b11110000;
         int tmp = (width << 4) & high;
         return height + tmp;
+    }
+
+    public void printBarcode(String code, int type, int h, int w, int font,
+                             int pos) throws IOException {
+
+        // need to test for errors in length of code
+        // also control for input type=0-6
+        // GS H = HRI position
+        writer.write(0x1D);
+        writer.write("H");
+        writer.write(pos); // 0=no print, 1=above, 2=below, 3=above & below
+
+        // GS f = set barcode characters
+        writer.write(0x1D);
+        writer.write("f");
+        writer.write(font);
+
+        // GS h = sets barcode height
+        writer.write(0x1D);
+        writer.write("h");
+        writer.write(h);
+
+        // GS w = sets barcode width
+        writer.write(0x1D);
+        writer.write("w");
+        writer.write(w);// module = 1-6
+
+        // GS k
+        writer.write(0x1D); // GS
+        writer.write("k"); // k
+        writer.write(type);// m = barcode type 0-6
+        writer.write(code.length()); // length of encoded string
+        writer.write(code);// d1-dk
+        writer.write(0);// print barcode
+
+        writer.flush();
     }
 
     public EscPosWriter close() throws IOException {

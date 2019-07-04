@@ -22,19 +22,19 @@ public class TaskPrint {
     }
 
     public void printTask() throws Exception {
-        init();
-        escPosWriter.text("1111111111111111111111111111111111111111111111111111111111111111111111111");
-        text("Hello Page Mode", Font.A_ALT, 0, 0, 0, 0, 100, 0);
+        init(55,2,55,2);
+        //escPosWriter.text("1111111111111111111111111111111111111111111111111111111111111111111111111");
+        //text("Hello Page Mode", Font.A_ALT, 0, 0, 0, 0, 100, 0);
         //qrCode("12345678", 50, 0, 1, 0, 3);
         text("11111", Font.A_SPECIAL, 1, 1, 60, 2, 0, 1);
         end();
     }
 
-    public void init() {
+    public void init(int wl,int wh,int hl,int hh) {
         escPosWriter
                 .initialize().setJustification(Justification.RIGHT)
                 .setPageMode()
-                .printArea(55, 2, 55, 5);
+                .printArea(wl, wh, hl, hh);
     }
 
     public void end() throws IOException {
@@ -42,8 +42,11 @@ public class TaskPrint {
                 .doPagePrint()
                 .setStandardMode()
                 .cut(CutA.PARTIAL)
-                .sendRealTimeRequestPulse(Pin.TWO, PulseTime.FOUR)
-                .close();
+                .sendRealTimeRequestPulse(Pin.TWO, PulseTime.FOUR);
+    }
+
+    public void close() throws IOException {
+        escPosWriter.close();
     }
 
     public void text(String s, Font f, int w, int h, int hL, int hH, int vL, int vH) throws IOException {
@@ -54,6 +57,12 @@ public class TaskPrint {
                 .setAbsoluteVerticalPosition(vL, vH)
                 .adjustLineHight(30)
                 .text(s);
+    }
+
+    public void barCode(String content, int type, int height, int width, int pos, int hL, int hH, int vL, int vH) throws IOException {
+        escPosWriter.setAbsolutePosition(hL, hH)
+                .setAbsoluteVerticalPosition(vL, vH)
+                .printBarcode(content, type, height, width, 0, pos);
     }
 
     public void qrCode(String content, int lineHeight, int hl, int hh, int vl, int vh) throws Exception {
