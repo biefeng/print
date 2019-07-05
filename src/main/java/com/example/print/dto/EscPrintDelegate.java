@@ -3,6 +3,8 @@ package com.example.print.dto;
 import com.alibaba.fastjson.JSON;
 import com.example.print.asm.enums.BarCodeTypeMappings;
 import com.example.print.asm.enums.Font;
+import com.example.print.dao.PrintTemplateDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -16,6 +18,8 @@ import java.math.BigDecimal;
  */
 @Component
 public class EscPrintDelegate {
+
+
     public void print(BasicPrintData printData,TemplateProp prop) {
         try {
             EscPrinter printer = null;

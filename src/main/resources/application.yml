@@ -1,0 +1,19 @@
+server:
+  port:
+    7538
+
+spring:
+  application:
+    name: print
+  datasource:
+    url: jdbc:hsqldb:file:print_template_db
+    type: org.hsqldb.jdbc.JDBCPool
+
+mybatis:
+  mapper-locations: classpath*:/com/example/print/**/*.xml
+
+logging:
+  level:
+    com.example.print:
+      debug
+

@@ -1,5 +1,7 @@
 package com.example.print.dto;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.List;
 
 public class TemplateProp {
@@ -25,6 +27,8 @@ public class TemplateProp {
     private Integer printMode;
 
     private String html;
+
+    private String elementJson;
 
     public List<ElementProp> getElements() {
         return elements;
@@ -80,5 +84,13 @@ public class TemplateProp {
 
     public void setPrintMode(Integer printMode) {
         this.printMode = printMode;
+    }
+
+    public String getElementsJson() {
+        return JSON.toJSONString(elements);
+    }
+
+    public void getElementsJson(String elementJson) {
+        this.elementJson = elementJson;
     }
 }

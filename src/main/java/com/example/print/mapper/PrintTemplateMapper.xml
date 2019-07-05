@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.print.dao.PrintTemplateDao">
+    <select id="listTemplate" resultType="map">
+        select * from jy_print_template limit #{start},#{limit}
+    </select>
+
+    <insert id="saveTemplate">
+        insert into jy_print_template(id,template_name,prop) values (IDENTITY(),#{templateName},#{prop})
+    </insert>
+</mapper>
