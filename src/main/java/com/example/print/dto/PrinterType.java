@@ -7,8 +7,8 @@ package com.example.print.dto;
  */
 public enum PrinterType {
 
-    WIRE("EPSON针式", 1),
-    THERMAL("EPSON热敏", 0);
+    EPSON_WIRE("EPSON针式", 1),
+    EPSON_THERMAL("EPSON热敏", 0);
 
     private String type;
     private Integer value;

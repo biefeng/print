@@ -35,22 +35,28 @@ public class EscThermalPrinter implements EscPrinter {
         }
     }
 
-    public void text(String s, Font f, int w, int h, int hL, int hH, int vL, int vH) throws IOException {
+    public void text(String s, Font f, int lineHeight, int w, int h, int hL, int hH, int vL, int vH) throws IOException {
         escPosWriter
                 .setFont(f)
                 .zoomIn(w, h)
                 .setAbsolutePosition(hL, hH)
-                .adjustLineHight((1<<h)*60);
+                .adjustLineHight((1 << h) * 60);
         if (pageMode) {
             escPosWriter.setAbsoluteVerticalPosition(vL, vH);
+        }
+        if (lineHeight != -1) {
+            escPosWriter.adjustLineHight(lineHeight);
         }
         escPosWriter.text(s);
     }
 
-    public void barCode(String content, int type, int height, int width, int pos, int hL, int hH, int vL, int vH) throws IOException {
+    public void barCode(String content, int type, int lineHeight, int height, int width, int pos, int hL, int hH, int vL, int vH) throws IOException {
         escPosWriter.setAbsolutePosition(hL, hH);
         if (pageMode) {
             escPosWriter.setAbsoluteVerticalPosition(vL, vH);
+        }
+        if (lineHeight != -1) {
+            escPosWriter.adjustLineHight(lineHeight);
         }
         escPosWriter.printBarcode(content, type, height, width, 0, pos);
     }

@@ -13,9 +13,9 @@ public interface EscPrinter {
 
     void init(int wl, int wh, int hl, int hh);
 
-    void text(String s, Font f, int w, int h, int hL, int hH, int vL, int vH) throws IOException;
+    void text(String s, Font f, int lineHeight,int w, int h, int hL, int hH, int vL, int vH) throws IOException;
 
-    void barCode(String content, int type, int height, int width, int pos, int hL, int hH, int vL, int vH) throws IOException;
+    void barCode(String content, int type,int lineHeight, int height, int width, int pos, int hL, int hH, int vL, int vH) throws IOException;
 
     void end() throws IOException;
 

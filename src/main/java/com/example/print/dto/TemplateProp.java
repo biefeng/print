@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 import java.util.List;
 
 public class TemplateProp {
+
+    private Integer id;
     /**
      * 模板各个元素的属性
      */
@@ -29,6 +31,14 @@ public class TemplateProp {
     private String html;
 
     private String elementJson;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public List<ElementProp> getElements() {
         return elements;

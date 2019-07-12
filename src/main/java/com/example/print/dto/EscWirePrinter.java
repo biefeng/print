@@ -32,12 +32,12 @@ public class EscWirePrinter implements EscPrinter {
     }
 
     @Override
-    public void text(String s, Font f, int w, int h, int hL, int hH, int vL, int vH) throws IOException {
+    public void text(String s, Font f, int lineHeight, int w, int h, int hL, int hH, int vL, int vH) throws IOException {
 
     }
 
     @Override
-    public void barCode(String content, int type, int height, int width, int pos, int hL, int hH, int vL, int vH) throws IOException {
+    public void barCode(String content, int type, int lineHeight, int height, int width, int pos, int hL, int hH, int vL, int vH) throws IOException {
 
     }
 

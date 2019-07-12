@@ -15,6 +15,7 @@ public class ElementProp {
     protected Integer barCodeHeight;
     protected Boolean displayBarCodeValue;
     protected String barCodeValuePosition;
+    protected Integer lineHeight;
 
     public Integer getHorizenPosition() {
         return horizenPosition;
@@ -110,5 +111,13 @@ public class ElementProp {
 
     public void setBarCodeValuePosition(String barCodeValuePosition) {
         this.barCodeValuePosition = barCodeValuePosition;
+    }
+
+    public Integer getLineHeight() {
+        return lineHeight;
+    }
+
+    public void setLineHeight(Integer lineHeight) {
+        this.lineHeight = lineHeight;
     }
 }
