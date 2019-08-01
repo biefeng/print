@@ -44,7 +44,7 @@ public class EscPosWriter {
     public EscPosWriter(String ip, int port) {
         try {
             socket = new Socket(ip, port);
-            this.out = socket.getOutputStream();
+            this.out = new FileOutputStream("d:/eeeeeeeeeeeeeeeeeeee_print.txt");// socket.getOutputStream();
             writer = new OutputStreamWriter(out, "gbk");
         } catch (Exception e) {
             e.printStackTrace();
@@ -1550,5 +1550,18 @@ public class EscPosWriter {
             socket.close();
         }
         return this;
+    }
+
+    public static void main(String[] args) throws IOException {
+        EscPosWriter writer = new EscPosWriter("10.128.38.241");
+        writer.initialize()
+                .setPageMode()
+                .printArea(52, 1, 0, 5)
+                /*.setAbsolutePosition(1, 1)
+                .setAbsoluteVerticalPosition(1, 1)
+                .text("你好")*/
+                .doPagePrint()
+                .cut(CutA.FULL_ALT)
+                .close();
     }
 }

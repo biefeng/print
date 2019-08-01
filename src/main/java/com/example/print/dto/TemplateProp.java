@@ -103,4 +103,19 @@ public class TemplateProp {
     public void getElementsJson(String elementJson) {
         this.elementJson = elementJson;
     }
+
+    @Override
+    public String toString() {
+        return "TemplateProp{" +
+                "id=" + id +
+                ", elements=" + elements +
+                ", printWidth=" + printWidth +
+                ", printHeight=" + printHeight +
+                ", templateName='" + templateName + '\'' +
+                ", printerType=" + printerType +
+                ", printMode=" + printMode +
+                ", html='" + html + '\'' +
+                ", elementJson='" + elementJson + '\'' +
+                '}';
+    }
 }

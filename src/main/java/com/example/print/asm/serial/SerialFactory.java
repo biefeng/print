@@ -1,6 +1,6 @@
-package com.example.service1.asm.serial;
+package com.example.print.asm.serial;
 
-import com.example.service1.asm.serial.config.SerialConfig;
+import com.example.print.asm.serial.config.SerialConfig;
 import com.fazecast.jSerialComm.SerialPort;
 
 public enum SerialFactory {

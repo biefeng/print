@@ -1,0 +1,8 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body>
+        <epos-print xmlns="http://www.epson-pos.com/schemas/2011/03/epos-print">
+            <text lang="zh-han" font="font_a" dw="false" dh="false" width="1" height="1" reverse="false" ul="false" em="false" color="color_1" x="false" y="false" align="left" rotate="false">Hello</text>
+            <barcode hri="none" font="font_a" width="3" height="100" align="left" rotate="false">12345</barcode>
+        </epos-print>
+    </s:Body>
+</s:Envelope>

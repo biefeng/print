@@ -120,4 +120,23 @@ public class ElementProp {
     public void setLineHeight(Integer lineHeight) {
         this.lineHeight = lineHeight;
     }
+
+    @Override
+    public String toString() {
+        return "ElementProp{" +
+                "horizenPosition=" + horizenPosition +
+                ", verticalPosition=" + verticalPosition +
+                ", valueName='" + valueName + '\'' +
+                ", type='" + type + '\'' +
+                ", fontWidth=" + fontWidth +
+                ", fontHeight=" + fontHeight +
+                ", fontType='" + fontType + '\'' +
+                ", barCodeType='" + barCodeType + '\'' +
+                ", barCodeWidth=" + barCodeWidth +
+                ", barCodeHeight=" + barCodeHeight +
+                ", displayBarCodeValue=" + displayBarCodeValue +
+                ", barCodeValuePosition='" + barCodeValuePosition + '\'' +
+                ", lineHeight=" + lineHeight +
+                '}';
+    }
 }

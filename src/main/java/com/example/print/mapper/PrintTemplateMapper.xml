@@ -10,4 +10,8 @@
     <insert id="saveTemplate">
         insert into jy_print_template(id,template_name,prop) values (IDENTITY(),#{templateName},#{prop})
     </insert>
+
+    <update id="updateTemplate">
+        UPDATE JY_PRINT_TEMPLATE SET template_name='template1' where id =1
+    </update>
 </mapper>

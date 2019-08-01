@@ -75,7 +75,8 @@ public class PrintTemplateController {
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
-    public void handleAndPrintBarCode(Map unit) {
-
+    @PostMapping("/print")
+    public void print(@RequestBody TemplateProp template) {
+        System.out.println(template);
     }
 }

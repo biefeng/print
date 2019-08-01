@@ -1,4 +1,4 @@
-package com.example.service1.asm.serial.config;
+package com.example.print.asm.serial.config;
 
 /**
  * Type-safe wrapper for SerialPort Parameters
