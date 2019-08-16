@@ -1,8 +1,6 @@
 package com.example.print.monitor;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
@@ -11,7 +9,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,7 +81,6 @@ public class PrinterMonitor {
     }
 
     private class MonitorTaskManager extends TimerTask {
-
         Timer taskTimer;
         Map<String, Long> ips;
 
@@ -165,10 +161,11 @@ public class PrinterMonitor {
                     if (fireStatus == null) {
                         fireStatus = new FirePrinterStatus(x);
                     }
-
                     System.out.println(fireStatus.fireStatusEvent());
                     if (null != handler) {
-                        handler.handle(fireStatus.getResult());
+                        MonitorResult result = fireStatus.getResult();
+                        result.setIp(ipAddr);
+                        handler.handle(result);
                     }
                     System.out.println("**************************" + ipAddr + " end************************");
                 } else {
@@ -181,6 +178,7 @@ public class PrinterMonitor {
             } catch (Exception e) {
                 if (null != handler) {
                     MonitorResult result = new MonitorResult();
+                    result.setIp(ipAddr);
                     result.setMessage("检查打印机是否开启或网络是否正常。");
                     handler.handle(result);
                 }
@@ -201,10 +199,26 @@ public class PrinterMonitor {
         return taskMap.get(ip);
     }
 
-    public static void main(String[] args) {
-        PrinterMonitor monitor = new PrinterMonitor("21:59:40", "22:00:30");
-        monitor.setHandler(result -> System.out.println(result));
-        monitor.append("10.128.38.241", 2000);
+    public static void main(String[] args) throws FileNotFoundException {
+        FileOutputStream fos = new FileOutputStream("d:/monitor.txt");
+        OutputStreamWriter osw = new OutputStreamWriter(fos);
+        PrinterMonitor monitor = new PrinterMonitor("10:00:00", "22:00:30");
+        monitor.setHandler(result -> {
+            try {
+                if ((!result.isOnline()||!result.isCoverOk()||result.getPaperstatus()!="ok")){
+                    osw.write(result.getIp()+"---"+new Date().toString()+"---"+result+"\r\n");
+                }
+                osw.flush();
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+        });
+        monitor.append("10.128.36.242", 10000);
+        /*monitor.append("10.0.1.56", 10000);
+        monitor.append("10.0.1.57", 10000);
+        monitor.append("10.0.1.58", 10000);
+        monitor.append("10.0.1.61", 10000);*/
+
         monitor.start();
     }
 }

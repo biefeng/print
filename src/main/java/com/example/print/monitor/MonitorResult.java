@@ -7,11 +7,20 @@ package com.example.print.monitor;
  */
 public class MonitorResult {
 
+    private String ip;
     private boolean success = false;
     private boolean coverOk = false;
     private String paperstatus = "end";
     private boolean online = false;
     private String message;
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 
     public boolean isSuccess() {
         return success;
@@ -56,10 +65,12 @@ public class MonitorResult {
     @Override
     public String toString() {
         return "MonitorResult{" +
-                "success=" + success +
+                "ip='" + ip + '\'' +
+                ", success=" + success +
                 ", coverOk=" + coverOk +
                 ", paperstatus='" + paperstatus + '\'' +
                 ", online=" + online +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.example.print.template.xml;
 
+import cn.hutool.setting.Setting;
 import org.dom4j.Namespace;
 import org.dom4j.dom.DOMDocument;
 import org.dom4j.dom.DOMElement;
@@ -9,6 +10,11 @@ import org.dom4j.io.XMLWriter;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
  *@Author BieFeNg
@@ -20,6 +26,10 @@ public class XmlTemplate {
     private DOMDocument document;
     private DOMElement ePosPrint;
     private Namespace ePosPrintNameSpace;
+
+    private static final Pattern ESCAPE_MARKUP_PATTERN = Pattern.compile("([<>&'\"\\t\\n\\r])");
+
+    private StringBuilder message = new StringBuilder();
 
     public XmlTemplate() {
         Namespace namespace = new Namespace("s", "http://schemas.xmlsoap.org/soap/envelope/");
@@ -92,13 +102,69 @@ public class XmlTemplate {
         ePosPrint.appendChild(cut);
     }
 
+    public void addTag(String tagName, String data, Map<String, String> attr) {
+        StringBuffer sb = new StringBuffer();
+        if (null != attr && attr.size() > 0) {
+            sb.append(" ");
+            for (Map.Entry<String, String> entry : attr.entrySet()) {
+                sb.append(entry.getKey()).append("=\"").append(entry.getValue()).append("\" ");
+            }
+        }
+
+        message.append("<").append(tagName).append(sb.toString()).append(">").append(escapeMarkup(data)).append("</").append(tagName).append(">");
+    }
+
+    public String escapeMarkup(String s) {
+        Matcher m = ESCAPE_MARKUP_PATTERN.matcher(s);
+
+        while (m.find()) {
+            String g = m.group();
+            String r = null;
+            switch (g) {
+                case "<":
+                    r = "&lt;";
+                    break;
+                case ">":
+                    r = "&gt;";
+                    break;
+                case "&":
+                    r = "&amp;";
+                    break;
+                case "'":
+                    r = "&apos;";
+                    break;
+                case "\"":
+                    r = "&quot;";
+                    break;
+                case "\t":
+                    r = "&#9;";
+                    break;
+                case "\n":
+                    r = "&#10;";
+                    break;
+                case "\r":
+                    r = "&#13;";
+                    break;
+                default:
+                    break;
+            }
+            if (null == r) {
+                continue;
+            }
+            s = s.replace(g, r);
+        }
+        return s;
+    }
+
 
     public static void main(String[] args) throws IOException {
         XmlTemplate generator = new XmlTemplate();
-        generator.appendText("Hello");
-        generator.appendBarCode("12345");
-        generator.appendFeed(30);
-        generator.appendCut();
-        generator.generateXmlTemplate();
+        Map<String, String> attr = new HashMap<>();
+        attr.put("x", "245");
+        attr.put("y", "100");
+        attr.put("width", "1");
+        attr.put("height", "1");
+        generator.addTag("text", "123\n\"", attr);
+        System.out.println(generator.message.toString());
     }
 }
