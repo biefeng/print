@@ -1,4 +1,4 @@
-package com.example.print.dto;
+package com.example.print.template.parse.entity;
 
 public class ElementProp {
     protected Integer horizenPosition;
@@ -16,6 +16,8 @@ public class ElementProp {
     protected Boolean displayBarCodeValue;
     protected String barCodeValuePosition;
     protected Integer lineHeight;
+
+    protected ElementAttr attr;
 
     public Integer getHorizenPosition() {
         return horizenPosition;
@@ -121,6 +123,14 @@ public class ElementProp {
         this.lineHeight = lineHeight;
     }
 
+    public ElementAttr getAttr() {
+        return attr;
+    }
+
+    public void setAttr(ElementAttr attr) {
+        this.attr = attr;
+    }
+
     @Override
     public String toString() {
         return "ElementProp{" +
@@ -137,6 +147,7 @@ public class ElementProp {
                 ", displayBarCodeValue=" + displayBarCodeValue +
                 ", barCodeValuePosition='" + barCodeValuePosition + '\'' +
                 ", lineHeight=" + lineHeight +
+                ", attr=" + attr +
                 '}';
     }
 }

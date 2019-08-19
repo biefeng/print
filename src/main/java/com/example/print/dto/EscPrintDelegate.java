@@ -2,6 +2,7 @@ package com.example.print.dto;
 
 import com.example.print.asm.enums.BarCodeTypeMappings;
 import com.example.print.asm.enums.Font;
+import com.example.print.template.parse.entity.ElementProp;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 

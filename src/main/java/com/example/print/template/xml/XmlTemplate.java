@@ -29,7 +29,7 @@ public class XmlTemplate {
 
     private static final Pattern ESCAPE_MARKUP_PATTERN = Pattern.compile("([<>&'\"\\t\\n\\r])");
 
-    private StringBuilder message = new StringBuilder();
+    private StringBuilder message = new StringBuilder("<epos-print xmlns=\"http://www.epson-pos.com/schemas/2011/03/epos-print\">");
 
     public XmlTemplate() {
         Namespace namespace = new Namespace("s", "http://schemas.xmlsoap.org/soap/envelope/");
@@ -42,8 +42,6 @@ public class XmlTemplate {
         ePosPrintNameSpace = new Namespace("", "http://www.epson-pos.com/schemas/2011/03/epos-print");
         ePosPrint = new DOMElement("epos-print", ePosPrintNameSpace);
         sBody.appendChild(ePosPrint);
-
-
     }
 
     public void generateXmlTemplate() throws IOException {
@@ -102,16 +100,15 @@ public class XmlTemplate {
         ePosPrint.appendChild(cut);
     }
 
-    public void addTag(String tagName, String data, Map<String, String> attr) {
+    public void addTag(String tagName, String data, Map<String, Object> attr) {
         StringBuffer sb = new StringBuffer();
         if (null != attr && attr.size() > 0) {
             sb.append(" ");
-            for (Map.Entry<String, String> entry : attr.entrySet()) {
+            for (Map.Entry<String, Object> entry : attr.entrySet()) {
                 sb.append(entry.getKey()).append("=\"").append(entry.getValue()).append("\" ");
             }
         }
-
-        message.append("<").append(tagName).append(sb.toString()).append(">").append(escapeMarkup(data)).append("</").append(tagName).append(">");
+        message.append("<").append(tagName).append(sb.toString()).append(">").append(escapeMarkup(data + "\n")).append("</").append(tagName).append(">");
     }
 
     public String escapeMarkup(String s) {
@@ -156,10 +153,13 @@ public class XmlTemplate {
         return s;
     }
 
+    public StringBuilder getMessage() {
+        return message.append("</epos-print>");
+    }
 
     public static void main(String[] args) throws IOException {
         XmlTemplate generator = new XmlTemplate();
-        Map<String, String> attr = new HashMap<>();
+        Map<String, Object> attr = new HashMap<>();
         attr.put("x", "245");
         attr.put("y", "100");
         attr.put("width", "1");
